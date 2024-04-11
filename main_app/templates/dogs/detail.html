@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dog Profile</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ dog.name }}</span>
+    <p>Breed: {{ dog.breed }}</p>
+    <p>Description: {{ dog.description|linebreaks }}</p>
+    <p>Titles: {{ dog.titles }}</p>
+    <p>Handler: {{ dog.handler }}</p>
+    <p>Microchip number: {{ dog.microchipnr }}</p>
+    {% if dog.age > 0 %}
+      <p>Age: {{ dog.age }}</p>
+    {% else %}
+      <p>Age: Puppy</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
