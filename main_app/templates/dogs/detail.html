@@ -48,6 +48,55 @@
     </table>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ dog.name }}'s Events</h3>
+    {% if dog.events.count %}
+      {% for event in dog.events.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span>{{ event.name }}</span> {{ event.date }}
+            </span>
+          </div>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'unassoc_event' dog.id event.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Remove</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Events Registered</h5>
+    {% endif %}
+  </div>
+  <!-- Available events will come after this line -->
+  <div class="col s6">
+    <h3>Available Events</h3>
+    {% if events.count %}
+      {% for event in events.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span>{{ event.name }}</span> {{ event.date }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_event' dog.id event.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{dog.name}} has participated in all registered events.</h5>
+    {% endif %}
+  </div>
+</div>
 
 <script>
   const dateEl = document.getElementById('id_date');

@@ -2,6 +2,16 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
+class Event(models.Model):
+  name = models.CharField(max_length=150)
+  date = models.DateField('Event Date')
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('events_detail', kwargs={'pk': self.id})
+
 class Dog(models.Model):
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
@@ -10,6 +20,7 @@ class Dog(models.Model):
     titles = models.CharField(max_length=100)
     microchipnr = models.IntegerField()
     handler = models.CharField(max_length=100)
+    events = models.ManyToManyField(Event)
 
     def __str__(self):
         return self.name
